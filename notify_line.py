@@ -26,11 +26,11 @@ def initialize_options():
 
 def featch_page(options, url):
     driver = Chrome(
-        executable_path='/Users/hayato/Downloads/chromedriver',
+        executable_path='chromedriver', #'/Users/hayato/Downloads/chromedriver',
         options=options
         )
     driver.get(url)
-    time.sleep(300)
+    time.sleep(30)
     html = driver.page_source.encode('utf-8')
     soup = BeautifulSoup(html, "lxml")
     driver.close()
