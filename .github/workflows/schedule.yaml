@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       chromedriver: chromedriver
+      url: ${{secrets.NOTIFY_URL}}
+      access_token: ${{secrets.ACCESS_TOKEN}}
     strategy:
       matrix:
         python-version: [3.9]
@@ -24,5 +26,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         curl -OL "https://chromedriver.storage.googleapis.com/95.0.4638.69/chromedriver_linux64.zip"
         unzip -n chromedriver_linux64.zip
-        ls
+    - name: scrayping and notify
+      run: |
         python notify_line.py
