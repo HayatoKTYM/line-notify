@@ -9,24 +9,24 @@ MAX_NUM = 10
 
 def initialize_options():
     options = ChromeOptions()
-    # options.add_argument('--headless')
-    # options.add_argument("--disable-gpu")
-    # options.add_argument("--window-size=1280x1696")
-    # options.add_argument("--disable-application-cache")
-    # options.add_argument("--disable-infobars")
-    # options.add_argument("--no-sandbox")
-    # options.add_argument("--hide-scrollbars")
-    # options.add_argument("--enable-logging")
-    # options.add_argument("--log-level=0")
-    # options.add_argument("--single-process")
-    # options.add_argument("--ignore-certificate-errors")
+    options.add_argument('--headless')
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1280x1696")
+    options.add_argument("--disable-application-cache")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--hide-scrollbars")
+    options.add_argument("--enable-logging")
+    options.add_argument("--log-level=0")
+    options.add_argument("--single-process")
+    options.add_argument("--ignore-certificate-errors")
 
     return options
 
 
 def featch_page(options, url):
     driver = Chrome(
-        executable_path='chromedriver', #'/Users/hayato/Downloads/chromedriver',
+        executable_path=os.environ.get('chromedriver', './chromedriver'),
         options=options
         )
     driver.get(url)
