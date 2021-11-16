@@ -9,7 +9,7 @@ MAX_NUM = 10
 
 def initialize_options():
     options = ChromeOptions()
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
     # options.add_argument("--disable-gpu")
     # options.add_argument("--window-size=1280x1696")
     # options.add_argument("--disable-application-cache")
