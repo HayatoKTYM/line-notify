@@ -94,5 +94,6 @@ if __name__ == '__main__':
                 'stickerId': 52002735
             }
             r = requests.post(url, headers=headers, params=payload)
+            print(r.status_code)
     except Exception as e:
         print(e)
