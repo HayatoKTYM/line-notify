@@ -81,8 +81,8 @@ if __name__ == '__main__':
     #     with open('setting.py','w') as fo:
     #         fo.write(f'MAX_NUM = {num}')
 
-    url = os.environ.get('NOTIFY_URL')
-    access_token = os.environ.get('ACCESS_TOKEN')
+    url = os.environ.get('url')
+    access_token = os.environ.get('access_token')
     headers = {'Authorization': 'Bearer ' + access_token}
 
     try:
