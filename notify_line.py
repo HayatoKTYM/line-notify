@@ -87,7 +87,7 @@ if __name__ == '__main__':
     JST = timezone(timedelta(hours=+9), 'JST')
     today = datetime.now(JST).strftime('%Y/%m/%d')
     try:
-        if today == '2021/11/17':
+        if today == date:
             message = 'ワンパンマン最新話が更新されたよ'
             payload = {
                 'message': message,
