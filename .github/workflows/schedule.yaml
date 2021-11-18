@@ -42,5 +42,5 @@ jobs:
           git config user.name "HayatoKTYM"
           git add -u
           git commit -m "Add changes by Actions"
-          git push origin master
+          git push origin main
         fi
