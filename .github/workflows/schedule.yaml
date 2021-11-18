@@ -4,7 +4,7 @@ on:
   schedule:
     # 分 時 日 月 曜日
     # */X でX間隔
-    - cron: '00 0,6,12 * * *'
+    - cron: '00 */3 * * *'
 
 jobs:
   build:
@@ -33,3 +33,15 @@ jobs:
     - name: scrayping and notify
       run: |
         python notify_line.py
+    - name: Commit files
+      run: |
+        if ! git diff --exit-code --quiet
+        then
+          git config --local user.email "hayakap1211@gmail.com"
+          git config --local user.name "HayatoKTYM"
+          git add .
+          git commit -m "Add changes by Actions" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
