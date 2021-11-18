@@ -42,3 +42,4 @@ jobs:
           git add .
           git commit -m "Add changes by Actions"
           git push origin master
+        fi
