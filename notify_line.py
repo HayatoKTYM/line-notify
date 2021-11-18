@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome, ChromeOptions
 
-# import setting
+import setting
 
 
 def initialize_options():
@@ -68,33 +68,32 @@ if __name__ == '__main__':
     url = 'https://tonarinoyj.jp/episode/13932016480028985383'
     try:
         soup = featch_page(options, url)
-        date = get_latest_date(soup)
-        # num = get_max_num(soup)
+        # date = get_latest_date(soup)
+        num = get_max_num(soup)
     except:
         soup = featch_page(options, url, sleep=120)
-        date = get_latest_date(soup)
-        # num = get_max_num(soup)
-    print(date)
+        # date = get_latest_date(soup)
+        num = get_max_num(soup)
+    print(num)
     # TO DO: num で 通知を判断するようにする
     # その際，MAX_NUM setting.pyで保持するなど何かしら処理が必要
-    # if setting.MAX_NUM < num:
-    #     with open('setting.py','w') as fo:
-    #         fo.write(f'MAX_NUM = {num}')
+    if setting.MAX_NUM < num:
+        with open('setting.py', 'w') as fo:
+            fo.write(f'MAX_NUM = {num-1}')
 
-    url = os.environ.get('url')
-    access_token = os.environ.get('access_token')
-    headers = {'Authorization': 'Bearer ' + access_token}
-    JST = timezone(timedelta(hours=+9), 'JST')
-    today = datetime.now(JST).strftime('%Y/%m/%d')
-    try:
-        if today == date:
-            message = 'ワンパンマン最新話が更新されたよ'
+        url = os.environ.get('url')
+        access_token = os.environ.get('access_token')
+        headers = {'Authorization': 'Bearer ' + access_token}
+        JST = timezone(timedelta(hours=+9), 'JST')
+        today = datetime.now(JST).strftime('%Y/%m/%d')
+        try:
+            message = f'ワンパンマン最新話({num}話)が更新されたよ'
             payload = {
                 'message': message,
                 'stickerPackageId': 11537,
                 'stickerId': 52002735
             }
             r = requests.post(url, headers=headers, params=payload)
-            print(r.status_code)
-    except Exception as e:
-        print(e)
+
+        except Exception as e:
+            print(e)
