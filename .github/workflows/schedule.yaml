@@ -1,10 +1,10 @@
 name: Python Run
 
 on:
-  push:
+  schedule:
     # 分 時 日 月 曜日
     # */X でX間隔
-    #- cron: '00 */3 * * *'
+    - cron: '00 */4 * * *'
 
 jobs:
   build:

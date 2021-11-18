@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # その際，MAX_NUM setting.pyで保持するなど何かしら処理が必要
     if setting.MAX_NUM < num:
         with open('setting.py', 'w') as fo:
-            fo.write(f'MAX_NUM = {num-10}')
+            fo.write(f'MAX_NUM = {num}')
 
         url = os.environ.get('url')
         access_token = os.environ.get('access_token')
