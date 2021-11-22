@@ -5,8 +5,12 @@ import time
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome, ChromeOptions
 
+url = os.getenv('url')
+access_token = os.getenv('access_token')
+chromedriver_path = os.getenv('chromedriver', './chromedriver')
 
-def get_options():
+
+def get_options() -> ChromeOptions:
     options = ChromeOptions()
     options.add_argument('--headless')
     options.add_argument("--disable-gpu")
@@ -23,9 +27,13 @@ def get_options():
     return options
 
 
-def featch_page(options, url, sleep=30):
+def featch_page(
+        options: ChromeOptions,
+        url: str,
+        sleep: int = 30
+) -> BeautifulSoup:
     driver = Chrome(
-        executable_path=os.environ.get('chromedriver', './chromedriver'),
+        executable_path=chromedriver_path,
         options=options
     )
     driver.get(url)
@@ -46,7 +54,7 @@ def extract_num(src: str) -> int:
     return num
 
 
-def get_max_num(soup) -> int:
+def get_max_num(soup: BeautifulSoup) -> int:
     elems = soup.find_all("h4")
     print(elems)
     elems_num = [extract_num(e.text.strip()) for e in elems]
@@ -54,6 +62,6 @@ def get_max_num(soup) -> int:
     return max(elems_num)
 
 
-def get_latest_date(soup):
+def get_latest_date(soup: BeautifulSoup) -> str:
     elems = soup.find("span", class_='series-episode-list-date')
     return elems.text

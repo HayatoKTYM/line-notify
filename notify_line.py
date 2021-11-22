@@ -1,4 +1,3 @@
-import os
 # from datetime import datetime, timedelta, timezone
 import requests
 
@@ -10,8 +9,8 @@ def notify(num):
     with open('setting.py', 'w') as fo:
         fo.write(f'MAX_NUM = {num}')
 
-    url = os.environ.get('url')
-    access_token = os.environ.get('access_token')
+    access_token = utils.access_token
+    url = utils.url
     headers = {'Authorization': 'Bearer ' + access_token}
     # JST = timezone(timedelta(hours=+9), 'JST')
     # today = datetime.now(JST).strftime('%Y/%m/%d')
@@ -24,13 +23,13 @@ def notify(num):
             'stickerId': 52002735
         }
         r = requests.post(url, headers=headers, params=payload)
-
+        print(f'status code:{r.status_code}')
     except Exception as e:
         print(e)
 
 
 if __name__ == '__main__':
-    options = utils.get_option()
+    options = utils.get_options()
     url = 'https://tonarinoyj.jp/episode/13932016480028985383'
     try:
         soup = utils.featch_page(options, url)
