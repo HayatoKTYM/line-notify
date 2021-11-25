@@ -23,7 +23,7 @@ def notify(num):
             'stickerId': 52002735
         }
         r = requests.post(url, headers=headers, params=payload)
-        print(f'status code:{r.status_code}')
+
     except Exception as e:
         print(e)
 
