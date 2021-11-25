@@ -33,7 +33,7 @@ jobs:
         unzip -n chromedriver_linux64.zip
     - name: scrayping and notify
       run: |
-        python notify_line.py
+        python main.py
     - name: Commit files
       run: |
         ls
