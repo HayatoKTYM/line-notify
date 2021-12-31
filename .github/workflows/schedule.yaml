@@ -2,6 +2,8 @@ name: Python Run
 
 on:
   schedule:
+    branches-ignore:
+      - '**'
     # 分 時 日 月 曜日
     # */X でX間隔
     - cron: '00 */6 * * *'
