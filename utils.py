@@ -58,6 +58,7 @@ def get_max_num(soup: BeautifulSoup) -> int:
     elems = soup.find_all("h4")
     print(elems)
     elems_num = [extract_num(e.text.strip()) for e in elems]
+    elems_num = [e for e in elems_num if e]
 
     return max(elems_num)
 
