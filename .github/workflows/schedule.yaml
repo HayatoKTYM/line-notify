@@ -1,12 +1,10 @@
 name: Python Run
 
 on:
-  branches-ignore:
-    - '**'
-    schedule:
-      # 分 時 日 月 曜日
-      # */X でX間隔
-      - cron: '00 */6 * * *'
+  schedule:
+    # 分 時 日 月 曜日
+    # */X でX間隔
+    - cron: '00 */6 * * *'
 
 jobs:
   build:
