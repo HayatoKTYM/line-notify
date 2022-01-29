@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       chromedriver: chromedriver
-      url: ${{secrets.NOTIFY_URL}}
+      line_post_url: ${{secrets.NOTIFY_URL}}
       access_token: ${{secrets.ACCESS_TOKEN}}
     strategy:
       matrix:

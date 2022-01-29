@@ -5,9 +5,9 @@ import time
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome, ChromeOptions
 
-url = os.getenv('url')
-access_token = os.getenv('access_token')
-chromedriver_path = os.getenv('chromedriver', './chromedriver')
+line_post_url = os.environ['line_post_url']
+access_token = os.environ['access_token']
+chromedriver_path = os.environ['chromedriver']
 
 
 def get_options() -> ChromeOptions:
@@ -40,6 +40,7 @@ def featch_page(
     time.sleep(sleep)
     html = driver.page_source.encode('utf-8')
     soup = BeautifulSoup(html, "lxml")
+    soup.find_all("ul", class_="test-readable_product-list series-episode-list ")
     driver.close()
     return soup
 
@@ -56,11 +57,16 @@ def extract_num(src: str) -> int:
 
 def get_max_num(soup: BeautifulSoup) -> int:
     elems = soup.find_all("h4")
-    print(elems)
+    # print(elems)
     elems_num = [extract_num(e.text.strip()) for e in elems]
     elems_num = [e for e in elems_num if e]
 
     return max(elems_num)
+
+
+def get_url(soup: BeautifulSoup) -> str:
+    url = soup.find("a", class_='series-episode-list-container').get("href")
+    return url
 
 
 def get_latest_date(soup: BeautifulSoup) -> str:

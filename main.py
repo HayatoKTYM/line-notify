@@ -1,28 +1,27 @@
 # from datetime import datetime, timedelta, timezone
 import requests
-
 import utils
 import setting
 
 
-def notify(num):
+def notify(num, url):
     with open('setting.py', 'w') as fo:
         fo.write(f'MAX_NUM = {num}')
 
     access_token = utils.access_token
-    url = utils.url
+    line_post_url = utils.line_post_url
     headers = {'Authorization': 'Bearer ' + access_token}
     # JST = timezone(timedelta(hours=+9), 'JST')
     # today = datetime.now(JST).strftime('%Y/%m/%d')
 
     try:
-        message = f'ワンパンマン最新話({num}話)が更新されたよ'
+        message = f'ワンパンマン最新話({num}話)が更新されたよ\n {url}'
         payload = {
             'message': message,
-            'stickerPackageId': 11537,
-            'stickerId': 52002735
+            # 'stickerPackageId': 11537,
+            # 'stickerId': 52002735
         }
-        r = requests.post(url, headers=headers, params=payload)
+        r = requests.post(line_post_url, headers=headers, params=payload)
 
     except Exception as e:
         print(e)
@@ -30,16 +29,17 @@ def notify(num):
 
 if __name__ == '__main__':
     options = utils.get_options()
-    url = 'https://tonarinoyj.jp/episode/13932016480028985383'
+    base_url = 'https://tonarinoyj.jp/episode/13932016480028985383'
     try:
-        soup = utils.featch_page(options, url)
-        # date = get_latest_date(soup)
+        soup = utils.featch_page(options, base_url)
         num = utils.get_max_num(soup)
+        url = utils.get_url(soup)
     except Exception as e:
         print(e)
         soup = utils.featch_page(options, url, sleep=120)
-        # date = get_latest_date(soup)
         num = utils.get_max_num(soup)
+        url = utils.get_url(soup)
     print(num)
+    print(url)
     if setting.MAX_NUM < num:
-        notify(num)
+       notify(num, url)
