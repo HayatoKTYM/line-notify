@@ -82,5 +82,4 @@ def get_latest_date(soup: BeautifulSoup) -> str:
     """
     最新話の日付を抽出(unused)
     """
-    elems = soup.find("span", class_='series-episode-list-date')
-    return elems.text
+    return soup.find("span", class_='series-episode-list-date').text
