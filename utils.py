@@ -75,8 +75,7 @@ def get_url(soup: BeautifulSoup) -> str:
     """
     最新話のurlを抽出
     """
-    url = soup.find("a", class_='series-episode-list-container').get("href")
-    return url
+    return soup.find("a", class_='series-episode-list-container').get("href")
 
 
 def get_latest_date(soup: BeautifulSoup) -> str:
