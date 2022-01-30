@@ -32,6 +32,9 @@ def featch_page(
         url: str,
         sleep: int = 30
 ) -> BeautifulSoup:
+    """
+    webページをスクレイピング
+    """
     driver = Chrome(
         executable_path=chromedriver_path,
         options=options
@@ -40,35 +43,45 @@ def featch_page(
     time.sleep(sleep)
     html = driver.page_source.encode('utf-8')
     soup = BeautifulSoup(html, "lxml")
-    soup.find_all("ul", class_="test-readable_product-list series-episode-list ")
+    soup.find_all("ul",
+                  class_="test-readable_product-list series-episode-list ")
     driver.close()
     return soup
 
 
 def extract_num(src: str) -> int:
+    """
+    正規表現で数字部分を抽出
+    """
     r = re.match("\D*(\d+)\D*", src)
     if not r:
-        return
+        return 0  # intで返したいため
 
     num = int(r.groups()[0])
-
     return num
 
 
 def get_max_num(soup: BeautifulSoup) -> int:
-    elems = soup.find_all("h4")
-    # print(elems)
-    elems_num = [extract_num(e.text.strip()) for e in elems]
-    elems_num = [e for e in elems_num if e]
+    """
+    最新話の数値を抽出
+    """
+    elem = soup.find("h4", class_="series-episode-list-title")
+    num = extract_num(elem.text.strip())
 
-    return max(elems_num)
+    return num
 
 
 def get_url(soup: BeautifulSoup) -> str:
+    """
+    最新話のurlを抽出
+    """
     url = soup.find("a", class_='series-episode-list-container').get("href")
     return url
 
 
 def get_latest_date(soup: BeautifulSoup) -> str:
+    """
+    最新話の日付を抽出(unused)
+    """
     elems = soup.find("span", class_='series-episode-list-date')
     return elems.text
