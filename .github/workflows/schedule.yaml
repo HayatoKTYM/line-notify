@@ -45,3 +45,13 @@ jobs:
           git commit -m "Add changes by Actions"
           git push origin main
         fi
+  notify_error:
+    needs: [build]
+    if: ${{ failure() }}
+    steps:
+    - name: send error message
+      uses: louis70109/line-notify-action@master
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        message: 'Github Action is failed.'
+
