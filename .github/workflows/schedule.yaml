@@ -18,7 +18,6 @@ jobs:
       matrix:
         python-version: [3.9]
 
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -46,6 +45,7 @@ jobs:
           git push origin main
         fi
   notify_error:
+    runs-on: ubuntu-latest
     needs: [build]
     if: ${{ failure() }}
     steps:
