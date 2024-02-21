@@ -1,1 +1,1 @@
-MAX_NUM = 246
+MAX_NUM = 247
